@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -35,12 +37,14 @@ fun MyApp() {
 }
 
 @Composable
-fun Greetings(names: List<String> = listOf("World", "Compose")) {
+fun Greetings(names: List<String> = List(1000) { "$it" }) {
     // A surface container using the 'background' color from the theme
     Surface(color = MaterialTheme.colors.background) {
         Column(modifier = Modifier.padding(vertical = 4.dp)) {
-            for (name in names) {
-                Greeting(name)
+            LazyColumn {
+                items(names) { name ->
+                    Greeting(name)
+                }
             }
         }
     }
